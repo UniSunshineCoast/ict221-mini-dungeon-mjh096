@@ -8,11 +8,6 @@ import java.util.Random;
  */
 public class RangedMutantCell extends Cell {
     /**
-     * Allows the RangedMutantCell to randomly decide if it will attack or not.
-     */
-    private Random random = new Random();
-
-    /**
      * Constructs a RangedMutantCell at the given map coordinates.
      *
      * @param x the x-coordinate position of the cell
@@ -48,7 +43,7 @@ public class RangedMutantCell extends Cell {
         if ((dx == 2 && dy == 0) || (dx == 0 && dy == 2)) {
             if (new Random().nextBoolean()) {
                 player.damagePlayer(2);
-                System.out.println("📍 A ranged mutant shot you from (" + x + "," + y + ")! -2 HP");
+                System.out.println("A ranged mutant shot you from (" + x + "," + y + ")! -2 HP");
             }
         }
     }
