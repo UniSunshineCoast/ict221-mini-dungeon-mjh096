@@ -14,6 +14,10 @@ import java.io.Serializable;
  */
 public abstract class Cell extends StackPane implements Serializable {
 
+    /**
+     * Unique ID for serialization compatibility.
+     * Used to ensure that object matches the version of the class.
+     */
     private static final long serialVersionUID = 1L;
     protected int x;
     protected int y;

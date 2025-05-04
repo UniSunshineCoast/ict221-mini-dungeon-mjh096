@@ -7,7 +7,10 @@ import java.io.Serializable;
  * Stepping on this cell reduces players HP and increases score.
  */
 public class MeleeMutantCell extends Cell implements Serializable {
-
+    /**
+     * Unique ID for serialization compatibility.
+     * Used to ensure that object matches the version of the class.
+     */
     private static final long serialVersionUID = 1L;
     /**
      * Constructs a MeleeMutantCell at the given map coordinates.

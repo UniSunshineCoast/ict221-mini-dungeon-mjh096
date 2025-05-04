@@ -8,6 +8,11 @@ import java.io.Serializable;
  */
 public class GoldCell extends Cell implements Serializable {
     /**
+     * Unique ID for serialization compatibility.
+     * Used to ensure that object matches the version of the class.
+     */
+    private static final long serialVersionUID = 1L;
+    /**
      * Constructs an EmptyCell at the given map coordinates.
      *
      * @param x the x-coordinate position of the cell

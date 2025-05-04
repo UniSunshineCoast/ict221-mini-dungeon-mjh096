@@ -7,7 +7,10 @@ import java.io.Serializable;
  * This cell advances player to the next level or exits the game .
  */
 public class LadderCell extends Cell implements Serializable {
-
+    /**
+     * Unique ID for serialization compatibility.
+     * Used to ensure that object matches the version of the class.
+     */
     private static final long serialVersionUID = 1L;
     /**
      * Constructs a LadderCell at the given map coordinates.

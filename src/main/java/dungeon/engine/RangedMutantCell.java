@@ -8,7 +8,10 @@ import java.util.Random;
  * This cell can randomly attack player from 2 tiles away, stepping on it increases score.
  */
 public class RangedMutantCell extends Cell implements Serializable {
-
+    /**
+     * Unique ID for serialization compatibility.
+     * Used to ensure that object matches the version of the class.
+     */
     private static final long serialVersionUID = 1L;
     /**
      * Constructs a RangedMutantCell at the given map coordinates.

@@ -3,7 +3,10 @@ package dungeon.engine;
 import java.io.Serializable;
 
 public class Player implements Serializable {
-
+    /**
+     * Unique ID for serialization compatibility.
+     * Used to ensure that object matches the version of the class.
+     */
     private static final long serialVersionUID = 1L;
     /**
      * Name of Player

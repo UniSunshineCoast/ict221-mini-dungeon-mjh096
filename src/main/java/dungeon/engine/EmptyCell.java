@@ -7,7 +7,10 @@ import java.io.Serializable;
  * This cell has no effect on the player and operates as the default map cell.
  */
 public class EmptyCell extends Cell implements Serializable {
-
+    /**
+     * Unique ID for serialization compatibility.
+     * Used to ensure that object matches the version of the class.
+     */
     private static final long serialVersionUID = 1L;
     /**
      * Constructs an EmptyCell at the given map coordinates.

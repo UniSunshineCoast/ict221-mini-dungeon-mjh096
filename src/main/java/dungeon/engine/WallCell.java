@@ -7,7 +7,10 @@ import java.io.Serializable;
  * This cell can limit or block players movement on the grid.
  */
 public class WallCell extends Cell implements Serializable {
-
+    /**
+     * Unique ID for serialization compatibility.
+     * Used to ensure that object matches the version of the class.
+     */
     private static final long serialVersionUID = 1L;
     /**
      * Constructs a WallCell at the given map coordinates.

@@ -15,6 +15,10 @@ import java.util.Scanner;
  */
 public class GameEngine implements Serializable {
 
+    /**
+     * Unique ID for serialization compatibility.
+     * Used to ensure that object matches the version of the class.
+     */
     private static final long serialVersionUID = 1L;
 
     private Cell[][] map;
@@ -33,6 +37,11 @@ public class GameEngine implements Serializable {
      */
     private static final int maxStepsTaken = 100;
 
+    /**
+     * Saves the current game to be resumed later.
+     *
+     * @param filename name of file to save game to
+     */
     public void saveGame(String filename) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
             out.writeObject(this);
@@ -41,6 +50,13 @@ public class GameEngine implements Serializable {
             System.out.println("Error saving game: " + e.getMessage());
         }
     }
+
+    /**
+     * Loads a Saved game to play.
+     *
+     * @param filename name of file to load game
+     * @return Game Engine for MiniDungeon
+     */
     public static GameEngine loadGame(String filename) {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
             GameEngine engine = (GameEngine) in.readObject();
