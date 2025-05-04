@@ -25,6 +25,8 @@ public class GameEngine {
      */
     private int difficulty;
 
+    private int stepsLeft;
+
     public boolean checkWin() { return false; }
     public boolean checkLose() { return false; }
 
@@ -34,10 +36,14 @@ public class GameEngine {
     /**
      * Constructs a new GameEngine with a square map of the specified size.
      *
-     * @param size the width and height of the square map
+     * @param size the width and height of the square map.
+     * @param difficulty level of difficulty to start the game at.
      */
-    public GameEngine(int size) {
+    public GameEngine(int size, int difficulty) {
         map = new Cell[size][size];
+        this.difficulty = difficulty;
+        this.stepsLeft = 100;
+        this.level = 1;
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -98,10 +104,18 @@ public class GameEngine {
 
     /**
      * Adds non-player items to the map (gold, wall, traps etc.)
+     * Items scale based on set difficulty.
      */
     public void generateMap() {
         Random rand = new Random();
         int size = map.length;
+
+        int cellTrap = 2 + difficulty;
+        int cellGold = 2 + difficulty;
+        int cellWall = 5 + difficulty * 3;
+        int cellMeleeMutants = 1 + (difficulty > 1 ? 1 : 0);
+        int cellRangedMutants = 1 + (difficulty == 3 ? 1 : 0);
+        int cellPotions = 1;
 
         // Populate the map with EmptyCells to start with
         for (int i = 0; i < size; i++) {
@@ -110,20 +124,15 @@ public class GameEngine {
             }
         }
 
-        // Adds Ten WallCells on the map
-        for (int i = 0; i < 10; i++) {
-            placeRandom(new WallCell(0, 0), rand);
-        }
-
         // Scatter unique cells around the map (Gold, Traps etc.)
+        for (int i = 0; i < cellWall; i++) {placeRandom(new WallCell(0, 0), rand);}
+        for (int i = 0; i < cellGold; i++) {placeRandom(new GoldCell(0, 0), rand);}
+        for (int i = 0; i < cellTrap; i++) {placeRandom(new TrapCell(0, 0), rand);}
+        for (int i = 0; i < cellPotions; i++) {placeRandom(new HealthPotionCell(0, 0), rand);}
+        for (int i = 0; i < cellMeleeMutants; i++) {placeRandom(new MeleeMutantCell(0, 0), rand);}
+        for (int i = 0; i < cellRangedMutants; i++) {placeRandom(new RangedMutantCell(0, 0), rand);}
+
         placeRandom(new LadderCell(0, 0), rand);
-        placeRandom(new GoldCell(0, 0), rand);
-        placeRandom(new GoldCell(0, 0), rand);
-        placeRandom(new TrapCell(0, 0), rand);
-        placeRandom(new TrapCell(0, 0), rand);
-        placeRandom(new HealthPotionCell(0, 0), rand);
-        placeRandom(new MeleeMutantCell(0, 0), rand);
-        placeRandom(new RangedMutantCell(0, 0), rand);
     }
 
     /**
@@ -154,7 +163,7 @@ public class GameEngine {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        GameEngine engine = new GameEngine(10);
+        GameEngine engine = new GameEngine(10,3);
         engine.setPlayer(new Player("TestPlayer", 0, 0)); // Set player manually for now
         engine.generateMap(); // For now it can just fill with EmptyCells
 
