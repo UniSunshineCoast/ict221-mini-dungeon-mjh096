@@ -22,7 +22,8 @@ public class HealthPotionCell extends Cell {
      */
     @Override
     public void interact(Player player) {
-        player.updateHP(4); // cap at 10 in implementation
+        player.updateHP(4);
+        System.out.println("You found a Health Potion! +4 HP");
         // Potion disappears after use
     }
 
