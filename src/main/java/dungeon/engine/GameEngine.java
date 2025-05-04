@@ -30,7 +30,6 @@ public class GameEngine {
      */
     private int stepsLeft;
 
-    public boolean checkWin() { return false; }
     public boolean checkLose() { return false; }
 
     public void saveGame() {}
@@ -177,6 +176,17 @@ public class GameEngine {
         map[x][y] = cell;
     }
 
+    /**
+     * Checks to determine if player is on a ladder,
+     * this indicates either player has won or proceeds to next level.
+     *
+     * @return true or false if player is on top of a ladder
+     */
+    public boolean checkWin() {
+        int x = player.getX();
+        int y = player.getY();
+        return map[x][y] instanceof LadderCell;
+    }
 
     /**
      * Plays a text-based version of the game
