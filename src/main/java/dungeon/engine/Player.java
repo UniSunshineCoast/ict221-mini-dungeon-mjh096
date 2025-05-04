@@ -26,6 +26,9 @@ public class Player {
      */
     private int stepsTaken;
 
+    /**
+     * Allows GameEngine to pass through to manage Cells the player passes over
+     */
     private GameEngine gameEngine;
 
     /**
@@ -116,10 +119,21 @@ public class Player {
      */
     public void setName(String name) { this.name = name; }
 
+    /**
+     * Passes changes back to the gameEngine
+     *
+     * @param engine Engine of the MiniDungeon
+     */
     public void setGameEngine(GameEngine engine) {
         this.gameEngine = engine;
     }
 
+    /**
+     * Fetches MiniDungeon Game Engine
+     * Allows management of Cells through the Player
+     *
+     * @return Engine of the MiniDungeon
+     */
     public GameEngine getGameEngine() {
         return gameEngine;
     }
