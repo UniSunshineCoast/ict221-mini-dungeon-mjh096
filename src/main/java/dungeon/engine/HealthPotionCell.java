@@ -1,10 +1,14 @@
 package dungeon.engine;
 
+import java.io.Serializable;
+
 /**
  * Represents an Health Potion in the dungeon grid.
  * This cell increases the health of the player after stepping on it.
  */
-public class HealthPotionCell extends Cell {
+public class HealthPotionCell extends Cell implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     /**
      * Constructs a HealthPotionCell at the given map coordinates.
      *

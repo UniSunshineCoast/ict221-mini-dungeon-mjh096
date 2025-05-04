@@ -1,10 +1,14 @@
 package dungeon.engine;
 
+import java.io.Serializable;
+
 /**
  * Represents a Melee Mutant in the dungeon grid.
  * Stepping on this cell reduces players HP and increases score.
  */
-public class MeleeMutantCell extends Cell {
+public class MeleeMutantCell extends Cell implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     /**
      * Constructs a MeleeMutantCell at the given map coordinates.
      *

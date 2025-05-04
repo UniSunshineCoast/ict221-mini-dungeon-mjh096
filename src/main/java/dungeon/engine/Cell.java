@@ -2,6 +2,8 @@ package dungeon.engine;
 
 import javafx.scene.layout.StackPane;
 
+import java.io.Serializable;
+
 /**
  * Abstract class representing a cell in the dungeon grid.
  * Each cell occupies a specific location and may have unique interactions
@@ -10,7 +12,9 @@ import javafx.scene.layout.StackPane;
  * Subclasses must implement the {@link #interact(Player)} method to define
  * their specific behavior (e.g., damaging the player, awarding gold, etc.).
  */
-public abstract class Cell extends StackPane {
+public abstract class Cell extends StackPane implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     protected int x;
     protected int y;
 

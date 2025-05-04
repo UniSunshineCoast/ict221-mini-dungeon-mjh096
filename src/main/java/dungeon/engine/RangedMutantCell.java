@@ -1,12 +1,15 @@
 package dungeon.engine;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * Represents a Ranged Mutant in the dungeon grid.
  * This cell can randomly attack player from 2 tiles away, stepping on it increases score.
  */
-public class RangedMutantCell extends Cell {
+public class RangedMutantCell extends Cell implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     /**
      * Constructs a RangedMutantCell at the given map coordinates.
      *

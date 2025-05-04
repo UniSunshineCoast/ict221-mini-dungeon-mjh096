@@ -1,10 +1,14 @@
 package dungeon.engine;
 
+import java.io.Serializable;
+
 /**
  * Represents a wall in the dungeon grid.
  * This cell can limit or block players movement on the grid.
  */
-public class WallCell extends Cell {
+public class WallCell extends Cell implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     /**
      * Constructs a WallCell at the given map coordinates.
      *

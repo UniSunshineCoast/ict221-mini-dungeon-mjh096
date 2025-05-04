@@ -1,10 +1,14 @@
 package dungeon.engine;
 
+import java.io.Serializable;
+
 /**
  * Represents a ladder cell in the dungeon grid.
  * This cell advances player to the next level or exits the game .
  */
-public class LadderCell extends Cell {
+public class LadderCell extends Cell implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     /**
      * Constructs a LadderCell at the given map coordinates.
      *

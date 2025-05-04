@@ -1,10 +1,12 @@
 package dungeon.engine;
 
+import java.io.Serializable;
+
 /**
  * Represents a Gold Coin in the dungeon grid.
  * This cell will increase the players score after stepping on it.
  */
-public class GoldCell extends Cell {
+public class GoldCell extends Cell implements Serializable {
     /**
      * Constructs an EmptyCell at the given map coordinates.
      *

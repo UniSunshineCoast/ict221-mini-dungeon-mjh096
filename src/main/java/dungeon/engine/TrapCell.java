@@ -1,10 +1,14 @@
 package dungeon.engine;
 
+import java.io.Serializable;
+
 /**
  * Represents a trap in the dungeon grid.
  * Stepping on this cell will cause damage to the player.
  */
-public class TrapCell extends Cell {
+public class TrapCell extends Cell implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     /**
      * Constructs a TrapCell at the given map coordinates.
      *

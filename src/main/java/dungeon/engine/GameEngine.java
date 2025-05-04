@@ -2,6 +2,7 @@ package dungeon.engine;
 
 import javafx.scene.text.Text;
 
+import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -12,7 +13,9 @@ import java.util.Scanner;
  *
  * This class operates the game loop in the text-based version.
  */
-public class GameEngine {
+public class GameEngine implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Cell[][] map;
     private Player player;
@@ -30,8 +33,25 @@ public class GameEngine {
      */
     private static final int maxStepsTaken = 100;
 
-    public void saveGame() {}
-    public void loadGame() {}
+    public void saveGame(String filename) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
+            out.writeObject(this);
+            System.out.println("Game saved successfully.");
+        } catch (IOException e) {
+            System.out.println("Error saving game: " + e.getMessage());
+        }
+    }
+    public static GameEngine loadGame(String filename) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
+            GameEngine engine = (GameEngine) in.readObject();
+            engine.getPlayer().setGameEngine(engine); // re-link
+            System.out.println("Game loaded successfully.");
+            return engine;
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error loading game: " + e.getMessage());
+            return null;
+        }
+    }
 
     /**
      * Constructs a new GameEngine with a square map of the specified size.
@@ -94,6 +114,10 @@ public class GameEngine {
     public void setPlayer(Player p) {
         this.player = p;
         p.setGameEngine(this);
+    }
+
+    public Player getPlayer() {
+        return this.player;
     }
 
     /**
@@ -230,39 +254,68 @@ public class GameEngine {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        GameEngine engine = new GameEngine(10);
-        System.out.print("Enter Player Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter difficulty (1 = Easy, 2 = Medium, 3 = Hard): ");
-        int difficulty = Integer.parseInt(scanner.nextLine());
-        engine.setDifficulty(difficulty); // Sets difficulty of the game.
-        engine.setPlayer(new Player(name, 0, 0)); // Set player manually for now
-        engine.generateMap(); // Fills map with unique cells
+        GameEngine engine;
 
+        System.out.print("MiniDungeon (N = New Game, C = Continue Game): ");
+        String input = scanner.nextLine().trim().toLowerCase();
+
+        switch (input) {
+            case "n" -> {
+                engine = new GameEngine(10);
+                System.out.print("Enter Player Name: ");
+                String name = scanner.nextLine();
+                System.out.print("Enter difficulty (1 = Easy, 2 = Medium, 3 = Hard): ");
+                int difficulty = Integer.parseInt(scanner.nextLine());
+                engine.setDifficulty(difficulty);
+                engine.setPlayer(new Player(name, 0, 0));
+                engine.generateMap();
+            }
+            case "c" -> {
+                engine = GameEngine.loadGame("savegame.dat");
+                if (engine == null) {
+                    System.out.println("Failed to load game. Starting new one.");
+                    engine = new GameEngine(10);
+                    System.out.print("Enter Player Name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter difficulty (1 = Easy, 2 = Medium, 3 = Hard): ");
+                    int difficulty = Integer.parseInt(scanner.nextLine());
+                    engine.setDifficulty(difficulty);
+                    engine.setPlayer(new Player(name, 0, 0));
+                    engine.generateMap();
+                }
+            }
+            default -> {
+                System.out.println("Invalid input. Exiting.");
+                return;
+            }
+        }
+
+        // Main gameplay loop
         while (!engine.checkWin() && !engine.checkLose()) {
             engine.printMap();
 
-            System.out.print("Enter move (u = up, d = down, l = left, r = right): ");
-            String input = scanner.nextLine().trim().toLowerCase();
+            System.out.print("Enter move (u = up, d = down, l = left, r = right, s = save game): ");
+            String move = scanner.nextLine().trim().toLowerCase();
 
-            switch (input) {
-                case "u": engine.moveUp(); break;
-                case "d": engine.moveDown(); break;
-                case "l": engine.moveLeft(); break;
-                case "r": engine.moveRight(); break;
-                default:
-                    System.out.println("Invalid input. Please use u/d/l/r.");
+            switch (move) {
+                case "u" -> engine.moveUp();
+                case "d" -> engine.moveDown();
+                case "l" -> engine.moveLeft();
+                case "r" -> engine.moveRight();
+                case "s" -> {
+                    engine.saveGame("savegame.dat");
+                    System.out.println("Game saved. Exiting...");
+                    System.exit(0);
+                }
+                default -> System.out.println("Invalid input.");
             }
 
+//            engine.checkNextLevel();
             System.out.println();
         }
 
-        if (engine.checkWin()) {
-            System.out.println("You escaped the dungeon!");
-        } else if (engine.checkLose()) {
-            System.out.println("You lost the game.");
-        } else {
-            System.out.println("💀 Game over!");
-        }
+        if (engine.checkWin()) System.out.println("You escaped the dungeon!");
+        else System.out.println("You lost the game.");
     }
+
 }
