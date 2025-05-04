@@ -48,14 +48,32 @@ public class Player {
      *
      * @param amount Updated Health Points
      */
-    public void updateHP(int amount) {}
+    public void updateHP(int amount) {
+        this.hp = amount;
+    }
+
+    /**
+     * @param amount amount of health to add
+     */
+    public void healPlayer(int amount) {
+        this.hp += amount;
+    }
+
+    /**
+     * @param amount amount of damage player takes
+     */
+    public void damagePlayer(int amount) {
+        this.hp -= amount;
+    }
 
     /**
      * Updates Players Current Score.
      *
      * @param amount Updated Score
      */
-    public void updateScore(int amount) {}
+    public void updateScore(int amount) {
+        this.score += amount;
+    }
 
     /**
      * Gets Players Current Name.
