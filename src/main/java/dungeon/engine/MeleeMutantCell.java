@@ -17,12 +17,13 @@ public class MeleeMutantCell extends Cell {
 
     /**
      * Performs action associated with this cell type.
+     * Player fights with Mutant, loses health and gains points
      *
      * @param player Player interacting with this cell
      */
     @Override
     public void interact(Player player) {
-        player.updateHP(-2);
+        player.damagePlayer(2);
         player.updateScore(2);
         // Mutant removed after interaction
     }
