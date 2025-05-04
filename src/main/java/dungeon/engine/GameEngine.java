@@ -30,8 +30,6 @@ public class GameEngine {
      */
     private int stepsLeft;
 
-    public boolean checkLose() { return false; }
-
     public void saveGame() {}
     public void loadGame() {}
 
@@ -180,12 +178,22 @@ public class GameEngine {
      * Checks to determine if player is on a ladder,
      * this indicates either player has won or proceeds to next level.
      *
-     * @return true or false if player is on top of a ladder
+     * @return true if player is on top of a ladder
      */
     public boolean checkWin() {
         int x = player.getX();
         int y = player.getY();
         return map[x][y] instanceof LadderCell;
+    }
+
+    /**
+     * Checks whether the player has lost the game.
+     * A player loses if their HP reaches Zero or they run out of steps.
+     *
+     * @return true if the player has lost
+     */
+    public boolean checkLose() {
+        return player.getHP() <= 0 || stepsLeft <= 0;
     }
 
     /**
@@ -200,7 +208,7 @@ public class GameEngine {
         int difficulty = Integer.parseInt(scanner.nextLine());
         engine.setDifficulty(difficulty); // Sets difficulty of the game.
         engine.setPlayer(new Player(name, 0, 0)); // Set player manually for now
-        engine.generateMap(); // For now it can just fill with EmptyCells
+        engine.generateMap(); // Fills map with unique cells
 
         while (!engine.checkWin() && !engine.checkLose()) {
             engine.printMap();
