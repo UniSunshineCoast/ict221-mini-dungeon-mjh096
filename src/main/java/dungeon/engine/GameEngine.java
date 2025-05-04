@@ -25,6 +25,9 @@ public class GameEngine {
      */
     private int difficulty;
 
+    /**
+     * Steps left that player can take before game over
+     */
     private int stepsLeft;
 
     public boolean checkWin() { return false; }
