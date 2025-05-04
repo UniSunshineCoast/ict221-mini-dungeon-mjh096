@@ -17,13 +17,14 @@ public class GoldCell extends Cell {
 
     /**
      * Performs action associated with this cell type.
+     * Updates Players Score to reflect the amount of Gold received and prompts message to user.
      *
      * @param player Player interacting with this cell
      */
     @Override
     public void interact(Player player) {
         player.updateScore(2);
-        // Remove gold from map afterward (cell becomes empty)
+        System.out.println("You found gold! +2 score");
     }
 
     /**
