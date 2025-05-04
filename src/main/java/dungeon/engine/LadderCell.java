@@ -22,6 +22,7 @@ public class LadderCell extends Cell {
      */
     @Override
     public void interact(Player player) {
+        System.out.println("You found a ladder!");
         // Advance to next level or end game
     }
 

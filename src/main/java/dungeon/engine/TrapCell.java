@@ -23,7 +23,7 @@ public class TrapCell extends Cell {
      */
     @Override
     public void interact(Player player) {
-        player.updateHP(-2);
+        player.damagePlayer(2);
         System.out.println("You triggered a trap! -2 HP");
         // Trap remains
     }

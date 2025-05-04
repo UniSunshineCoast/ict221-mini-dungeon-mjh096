@@ -228,9 +228,9 @@ public class GameEngine {
         }
 
         if (engine.checkWin()) {
-            System.out.println("🎉 You escaped the dungeon!");
+            System.out.println("You escaped the dungeon!");
         } else if (engine.checkLose()) {
-            System.out.println("💀 You lost the game.");
+            System.out.println("You lost the game.");
         } else {
             System.out.println("💀 Game over!");
         }

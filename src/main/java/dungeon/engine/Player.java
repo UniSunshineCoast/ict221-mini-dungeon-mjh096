@@ -161,7 +161,6 @@ public class Player {
 
         incrementSteps();
 
-        System.out.println("You moved to (" + newX + ", " + newY + ").");
         return map;
     }
 
