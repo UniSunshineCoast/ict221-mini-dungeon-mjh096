@@ -22,7 +22,7 @@ public class HealthPotionCell extends Cell {
      */
     @Override
     public void interact(Player player) {
-        player.updateHP(4);
+        player.healPlayer(4);
         System.out.println("You found a Health Potion! +4 HP");
 
         player.getGameEngine().clearCell(x, y); // Sets Cell as an EmptyCell
