@@ -25,6 +25,8 @@ public class GoldCell extends Cell {
     public void interact(Player player) {
         player.updateScore(2);
         System.out.println("You found gold! +2 score");
+
+        player.getGameEngine().clearCell(x, y); // Sets Cell as an EmptyCell
     }
 
     /**

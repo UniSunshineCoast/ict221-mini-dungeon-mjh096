@@ -26,6 +26,8 @@ public class Player {
      */
     private int stepsTaken;
 
+    private GameEngine gameEngine;
+
     /**
      * The Player class represents the player in the MiniDungeon game.
      * It tracks the player's position, health, score, and steps taken.
@@ -113,6 +115,14 @@ public class Player {
      * @param name Updated Player Name
      */
     public void setName(String name) { this.name = name; }
+
+    public void setGameEngine(GameEngine engine) {
+        this.gameEngine = engine;
+    }
+
+    public GameEngine getGameEngine() {
+        return gameEngine;
+    }
 
     /**
      * Moves Player to specified postion on the map.

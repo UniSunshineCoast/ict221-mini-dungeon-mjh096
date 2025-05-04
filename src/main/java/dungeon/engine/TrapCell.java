@@ -25,7 +25,6 @@ public class TrapCell extends Cell {
     public void interact(Player player) {
         player.damagePlayer(2);
         System.out.println("You triggered a trap! -2 HP");
-        // Trap remains
     }
 
     /**

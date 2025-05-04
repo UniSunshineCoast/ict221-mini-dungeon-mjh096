@@ -93,6 +93,7 @@ public class GameEngine {
      */
     public void setPlayer(Player p) {
         this.player = p;
+        p.setGameEngine(this);
     }
 
     /**
@@ -193,6 +194,17 @@ public class GameEngine {
      */
     public boolean checkLose() {
         return player.getHP() <= 0 || player.getStepsTaken() >= maxStepsTaken;
+    }
+
+    /**
+     * Replaces the cell at the given coordinates with an EmptyCell.
+     * Used when player interacts with cells that are one time use (e.g GoldCells)
+     *
+     * @param x the cells x-coordinate.
+     * @param y the cells y-coordinate.
+     */
+    public void clearCell(int x, int y) {
+        map[x][y] = new EmptyCell(x, y);
     }
 
     /**

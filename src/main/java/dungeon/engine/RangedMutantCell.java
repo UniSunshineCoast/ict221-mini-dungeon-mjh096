@@ -31,6 +31,7 @@ public class RangedMutantCell extends Cell {
     public void interact(Player player) {
         // Direct interaction
         player.updateScore(2);
+        player.getGameEngine().clearCell(x, y); // Sets Cell as an EmptyCell
     }
 
     /**

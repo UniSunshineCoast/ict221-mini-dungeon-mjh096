@@ -26,7 +26,7 @@ public class MeleeMutantCell extends Cell {
         player.damagePlayer(2);
         player.updateScore(2);
         System.out.println("You fought a melee mutant! -3 HP");
-        // Mutant removed after interaction
+        player.getGameEngine().clearCell(x, y); // Sets Cell as an EmptyCell
     }
 
     /**
