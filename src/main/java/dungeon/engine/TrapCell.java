@@ -17,12 +17,14 @@ public class TrapCell extends Cell {
 
     /**
      * Performs action associated with this cell type.
+     * Damages player as they interact with trap
      *
      * @param player Player interacting with this cell
      */
     @Override
     public void interact(Player player) {
         player.updateHP(-2);
+        System.out.println("You triggered a trap! -2 HP");
         // Trap remains
     }
 
