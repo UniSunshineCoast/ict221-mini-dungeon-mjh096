@@ -41,8 +41,15 @@ public class RangedMutantCell extends Cell {
      * @param player Player interacting with this cell
      */
     public void tryAttack(Player player) {
-        if (random.nextBoolean()) {
-            player.updateHP(-2);
+        int dx = Math.abs(player.getX() - this.x);
+        int dy = Math.abs(player.getY() - this.y);
+
+        // Only hit if exactly 2 tiles away
+        if ((dx == 2 && dy == 0) || (dx == 0 && dy == 2)) {
+            if (new Random().nextBoolean()) {
+                player.damagePlayer(2);
+                System.out.println("📍 A ranged mutant shot you from (" + x + "," + y + ")! -2 HP");
+            }
         }
     }
 

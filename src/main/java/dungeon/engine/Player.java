@@ -183,6 +183,8 @@ public class Player {
         move(dx, dy);
         map[newX][newY].interact(this);
 
+        gameEngine.checkRangedAttack();
+
         incrementSteps();
 
         return map;

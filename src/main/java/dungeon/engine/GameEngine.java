@@ -208,6 +208,24 @@ public class GameEngine {
     }
 
     /**
+     * Checks cells around player to check if cells can attack player (e.g. RangedMutantCell)
+     */
+    public void checkRangedAttack () {
+        int px = player.getX();
+        int py = player.getY();
+
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                Cell cell = map[i][j];
+
+                if (cell instanceof RangedMutantCell) {
+                    ((RangedMutantCell) cell).tryAttack(player);
+                }
+            }
+        }
+    }
+
+    /**
      * Plays a text-based version of the game
      */
     public static void main(String[] args) {
