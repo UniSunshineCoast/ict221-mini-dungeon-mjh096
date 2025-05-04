@@ -40,11 +40,10 @@ public class GameEngine {
      * Constructs a new GameEngine with a square map of the specified size.
      *
      * @param size the width and height of the square map.
-     * @param difficulty level of difficulty to start the game at.
      */
-    public GameEngine(int size, int difficulty) {
+    public GameEngine(int size) {
         map = new Cell[size][size];
-        this.difficulty = difficulty;
+        this.difficulty = 1;
         this.stepsLeft = 100;
         this.level = 1;
 
@@ -184,8 +183,13 @@ public class GameEngine {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        GameEngine engine = new GameEngine(10,3);
-        engine.setPlayer(new Player("TestPlayer", 0, 0)); // Set player manually for now
+        GameEngine engine = new GameEngine(10);
+        System.out.print("Enter Player Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter difficulty (1 = Easy, 2 = Medium, 3 = Hard): ");
+        int difficulty = Integer.parseInt(scanner.nextLine());
+        engine.setDifficulty(difficulty); // Sets difficulty of the game.
+        engine.setPlayer(new Player(name, 0, 0)); // Set player manually for now
         engine.generateMap(); // For now it can just fill with EmptyCells
 
         while (!engine.checkWin() && !engine.checkLose()) {
