@@ -1,6 +1,8 @@
 package dungeon.engine;
 
 import javafx.scene.text.Text;
+
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -23,7 +25,6 @@ public class GameEngine {
      */
     private int difficulty;
 
-    public void generateMap() {}
     public boolean checkWin() { return false; }
     public boolean checkLose() { return false; }
 
@@ -94,6 +95,58 @@ public class GameEngine {
     public void moveDown() {map =  player.moveDown(map); }
     public void moveLeft() {map =  player.moveLeft(map); }
     public void moveRight() {map =  player.moveRight(map); }
+
+    /**
+     * Adds non-player items to the map (gold, wall, traps etc.)
+     */
+    public void generateMap() {
+        Random rand = new Random();
+        int size = map.length;
+
+        // Populate the map with EmptyCells to start with
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                map[i][j] = new EmptyCell(i, j);
+            }
+        }
+
+        // Adds Ten WallCells on the map
+        for (int i = 0; i < 10; i++) {
+            placeRandom(new WallCell(0, 0), rand);
+        }
+
+        // Scatter unique cells around the map (Gold, Traps etc.)
+        placeRandom(new LadderCell(0, 0), rand);
+        placeRandom(new GoldCell(0, 0), rand);
+        placeRandom(new GoldCell(0, 0), rand);
+        placeRandom(new TrapCell(0, 0), rand);
+        placeRandom(new TrapCell(0, 0), rand);
+        placeRandom(new HealthPotionCell(0, 0), rand);
+        placeRandom(new MeleeMutantCell(0, 0), rand);
+        placeRandom(new RangedMutantCell(0, 0), rand);
+    }
+
+    /**
+     * Places a cell at a random unoccupied (non-wall, non-player) location.
+     *
+     * @param cell Specific cell to
+     * @param rand java.util.Random Object.
+     */
+    private void placeRandom(Cell cell, Random rand) {
+        int size = map.length;
+        int x, y;
+
+        do {
+            x = rand.nextInt(size);
+            y = rand.nextInt(size);
+        } while (
+                (x == 0 && y == 0) || map[x][y] instanceof WallCell || !(map[x][y] instanceof EmptyCell)
+        );
+
+        cell.x = x;
+        cell.y = y;
+        map[x][y] = cell;
+    }
 
 
     /**
