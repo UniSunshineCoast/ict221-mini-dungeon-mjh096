@@ -26,9 +26,9 @@ public class GameEngine {
     private int difficulty;
 
     /**
-     * Steps left that player can take before game over
+     * Amount of Steps Player can take in a single game.
      */
-    private int stepsLeft;
+    private static final int maxStepsTaken = 100;
 
     public void saveGame() {}
     public void loadGame() {}
@@ -41,7 +41,6 @@ public class GameEngine {
     public GameEngine(int size) {
         map = new Cell[size][size];
         this.difficulty = 1;
-        this.stepsLeft = 100;
         this.level = 1;
 
         for (int i = 0; i < size; i++) {
@@ -84,7 +83,7 @@ public class GameEngine {
             System.out.println();
         }
         System.out.println("Player: " + player.getName() + " | Level: " + level + " | Difficulty: " + difficulty);
-        System.out.println("HP: " + player.getHP() + " | Score: " + player.getScore() + " | Steps Taken: " + player.getStepsTaken());
+        System.out.println("HP: " + player.getHP() + " | Score: " + player.getScore() + " | Steps Taken: " + player.getStepsTaken() + "/" + maxStepsTaken);
     }
 
     /**
@@ -193,7 +192,7 @@ public class GameEngine {
      * @return true if the player has lost
      */
     public boolean checkLose() {
-        return player.getHP() <= 0 || stepsLeft <= 0;
+        return player.getHP() <= 0 || player.getStepsTaken() >= maxStepsTaken;
     }
 
     /**
@@ -230,6 +229,8 @@ public class GameEngine {
 
         if (engine.checkWin()) {
             System.out.println("🎉 You escaped the dungeon!");
+        } else if (engine.checkLose()) {
+            System.out.println("💀 You lost the game.");
         } else {
             System.out.println("💀 Game over!");
         }
