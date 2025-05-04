@@ -109,6 +109,21 @@ public class GameEngine {
     public void moveRight() {map =  player.moveRight(map); }
 
     /**
+     * Sets the game difficulty level.
+     * Must be called before generateMap().
+     *
+     * @param difficulty the difficulty level (1 = easy, 2 = medium, 3 = hard)
+     */
+    public void setDifficulty(int difficulty) {
+        if (difficulty < 1 || difficulty > 3) {
+            System.out.println("Invalid difficulty. Setting to 1 (Easy) by default.");
+            this.difficulty = 1;
+        } else {
+            this.difficulty = difficulty;
+        }
+    }
+
+    /**
      * Adds non-player items to the map (gold, wall, traps etc.)
      * Items scale based on set difficulty.
      */
