@@ -1,13 +1,39 @@
 package dungeon.engine;
 
 public class Player {
+    /**
+     * Name of Player
+     */
     private String name;
+    /**
+     * x-coordinate (vertical move)
+     */
     private int x;
+    /**
+     * y-coordinate (horizontal move)
+     */
     private int y;
+    /**
+     * Health Points
+     */
     private int hp;
+    /**
+     * Players Score
+     */
     private int score;
+    /**
+     * Players Steps Taken
+     */
     private int stepsTaken;
 
+    /**
+     * The Player class represents the player in the MiniDungeon game.
+     * It tracks the player's position, health, score, and steps taken.
+     *
+     * @param name Name of Player
+     * @param x Current x-coordinate
+     * @param y Current y-coordinate
+     */
     public Player(String name, int x, int y) {
         this.name = name;
         this.x = x;
@@ -17,27 +43,90 @@ public class Player {
         this.stepsTaken = 0;
     }
 
+    /**
+     * Updates Players Current Health Points.
+     *
+     * @param amount Updated Health Points
+     */
+    public void updateHP(int amount) {}
+
+    /**
+     * Updates Players Current Score.
+     *
+     * @param amount Updated Score
+     */
+    public void updateScore(int amount) {}
+
+    /**
+     * Gets Players Current Name.
+     *
+     * @return Players Name
+     */
+    public String getName() { return name; }
+
+    /**
+     * @return Players Current x-coordinate
+     */
+    public int getX() { return x; }
+
+    /**
+     * @return Players Current y-coordinate
+     */
+    public int getY() { return y; }
+
+    /**
+     * @return Players Current HP (Health Points).
+     */
+    public int getHP() { return hp; }
+
+    /**
+     * @return Players Current Score
+     */
+    public int getScore() { return score; }
+
+    /**
+     * @return Players Current Steps Taken
+     */
+    public int getStepsTaken() { return stepsTaken; }
+
+    /**
+     * Sets Players Current Name
+     *
+     * @param name Updated Player Name
+     */
+    public void setName(String name) { this.name = name; }
+
+    /**
+     * Moves Player to specified postion on the map.
+     *
+     * @param dx The changed x-coordinate.
+     * @param dy The changed y-coordinate.
+     */
     public void move(int dx, int dy) {
         x += dx;
         y += dy;
     }
+
+    /**
+     * Increments Players Steps Taken by One.
+     */
     public void incrementSteps() {
         stepsTaken++;
     }
-    public void updateHP(int amount) {}
-    public void updateScore(int amount) {}
 
-    public String getName() { return name; }
-    public int getX() { return x; }
-    public int getY() { return y; }
-    public int getHP() { return hp; }
-    public int getScore() { return score; }
-    public int getStepsTaken() { return stepsTaken; }
-    public void setName(String name) { this.name = name; }
-
+    /**
+     * Moves the player by the specified deltas on the map, if valid.
+     * If not, prints a message stating the reason player cannot move.
+     *
+     * @param map The game map used to check for obstacles and interactions.
+     * @param dx The changed x-coordinate.
+     * @param dy The changed y-coordinate.
+     * @return updated map variable.
+     */
     private Cell[][] movePlayer(Cell[][] map, int dx, int dy) {
         int newX = getX() + dx;
         int newY = getY() + dy;
+
 
         if (newX < 0 || newX >= map.length || newY < 0 || newY >= map[0].length) {
             System.out.println("You cannot move outside the map.");
@@ -58,12 +147,15 @@ public class Player {
         return map;
     }
 
-    // These just call movePlayer() with correct directions
+
+    /**
+     * Method to move player in the correct direction on the map (Up, Down, Left, Right).
+     *
+     * @param map The game map used to check for obstacles and interactions.
+     * @return updated map variable.
+     */
     public Cell[][] moveUp(Cell[][] map) {return movePlayer(map,-1, 0); }
     public Cell[][] moveDown(Cell[][] map) {return movePlayer(map,1, 0); }
     public Cell[][] moveLeft(Cell[][] map) {return movePlayer(map,0, -1); }
     public Cell[][] moveRight(Cell[][] map) {return movePlayer(map,0, 1); }
-
-
-    // Getters and setters for x, y, hp, score, stepsTaken (as needed)
 }

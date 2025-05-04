@@ -3,11 +3,24 @@ package dungeon.engine;
 import javafx.scene.text.Text;
 import java.util.Scanner;
 
+/**
+ * The GameEngine class manages the core logic of the MiniDungeon.
+ * It is responsible for initialising the map and handling player movement,
+ * processing interactions between the player and cells, and tracking game progress.
+ *
+ * This class operates the game loop in the text-based version.
+ */
 public class GameEngine {
 
     private Cell[][] map;
     private Player player;
+    /**
+     * Current Level of the game.
+     */
     private int level;
+    /**
+     * Current difficulty of the game
+     */
     private int difficulty;
 
     public void generateMap() {}
@@ -18,9 +31,9 @@ public class GameEngine {
     public void loadGame() {}
 
     /**
-     * Creates a square game board.
+     * Constructs a new GameEngine with a square map of the specified size.
      *
-     * @param size the width and height.
+     * @param size the width and height of the square map
      */
     public GameEngine(int size) {
         map = new Cell[size][size];
@@ -61,16 +74,22 @@ public class GameEngine {
             }
             System.out.println();
         }
-
+        System.out.println("Player: " + player.getName() + " | Level: " + level + " | Difficulty: " + difficulty);
         System.out.println("HP: " + player.getHP() + " | Score: " + player.getScore() + " | Steps Taken: " + player.getStepsTaken());
     }
 
+    /**
+     * Creates the player object used by this game engine.
+     *
+     * @param p the player to associate with the game
+     */
     public void setPlayer(Player p) {
         this.player = p;
     }
 
-
-    // These just call movePlayer() with correct directions
+    /**
+     * Method to move player in the correct direction on the map (Up, Down, Left, Right).
+     */
     public void moveUp() {map = player.moveUp(map); }
     public void moveDown() {map =  player.moveDown(map); }
     public void moveLeft() {map =  player.moveLeft(map); }
@@ -78,7 +97,7 @@ public class GameEngine {
 
 
     /**
-     * Plays a text-based game
+     * Plays a text-based version of the game
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
