@@ -30,8 +30,8 @@ public class TrapCell extends Cell implements Serializable {
      */
     @Override
     public void interact(Player player) {
-        player.damagePlayer(2);
-        System.out.println("You triggered a trap! -2 HP");
+        player.damagePlayer(1);
+        System.out.println("You triggered a trap! -1 HP");
     }
 
     /**

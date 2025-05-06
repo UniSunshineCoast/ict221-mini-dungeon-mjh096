@@ -31,7 +31,7 @@ public class RangedMutantCell extends Cell implements Serializable {
     @Override
     public void interact(Player player) {
         // Direct interaction
-        player.updateScore(2);
+        player.updateScore(1);
         player.getGameEngine().clearCell(x, y); // Sets Cell as an EmptyCell
     }
 
@@ -48,8 +48,8 @@ public class RangedMutantCell extends Cell implements Serializable {
         // Only hit if exactly 2 tiles away
         if ((dx == 2 && dy == 0) || (dx == 0 && dy == 2)) {
             if (new Random().nextBoolean()) {
-                player.damagePlayer(2);
-                System.out.println("A ranged mutant shot you from (" + x + "," + y + ")! -2 HP");
+                player.damagePlayer(1);
+                System.out.println("A ranged mutant shot you from (" + x + "," + y + ")! -1 HP");
             }
         }
     }

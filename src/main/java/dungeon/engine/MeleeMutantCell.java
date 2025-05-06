@@ -30,9 +30,9 @@ public class MeleeMutantCell extends Cell implements Serializable {
      */
     @Override
     public void interact(Player player) {
-        player.damagePlayer(2);
-        player.updateScore(2);
-        System.out.println("You fought a melee mutant! -3 HP");
+        player.damagePlayer(1);
+        player.updateScore(1);
+        System.out.println("You fought a melee mutant! -1 HP");
         player.getGameEngine().clearCell(x, y); // Sets Cell as an EmptyCell
     }
 
