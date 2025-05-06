@@ -30,8 +30,8 @@ public class GoldCell extends Cell implements Serializable {
      */
     @Override
     public void interact(Player player) {
-        player.updateScore(1);
-        System.out.println("You found gold! +1 score");
+        player.updateScore(2);
+        System.out.println("You found gold! +2 score");
 
         player.getGameEngine().clearCell(x, y); // Sets Cell as an EmptyCell
     }
