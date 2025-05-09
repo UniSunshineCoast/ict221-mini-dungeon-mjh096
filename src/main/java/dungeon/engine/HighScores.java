@@ -26,8 +26,18 @@ public class HighScores implements Serializable {
         this.date = date;
     }
 
+    /**
+     * @return Name of scoring player
+     */
     public String getPlayerName() {return playername;}
+    /**
+     * @return Returns captured score
+     */
     public int getScore() {return score;}
+
+    /**
+     * @return Date score was taken on
+     */
     public LocalDate getDate() {return date;}
 
     @Override
@@ -35,6 +45,12 @@ public class HighScores implements Serializable {
         return playername + " - " + score + " (" + date + ")";
     }
 
+    /**
+     * Saves HighScores to maintain persistant scores between games.
+     *
+     * @param scores List of scores as they stand.
+     * @param filename Scores will be saved as.
+     */
     public static void save(List<HighScores> scores, String filename) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
             out.writeObject(scores);
@@ -43,6 +59,12 @@ public class HighScores implements Serializable {
         }
     }
 
+    /**
+     * Loads HighScores from file
+     *
+     * @param filename Name of file to load.
+     * @return Array List of highScores.
+     */
     public static List<HighScores> load(String filename) {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
             return (List<HighScores>) in.readObject();

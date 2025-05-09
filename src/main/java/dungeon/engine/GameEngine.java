@@ -37,6 +37,9 @@ public class GameEngine implements Serializable {
      */
     private static final int maxStepsTaken = 100;
 
+    /**
+     * List of High Scores.
+     */
     private List<HighScores> highScores = new ArrayList<>();
 
     /**
