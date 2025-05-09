@@ -3,8 +3,8 @@ package dungeon.engine;
 import javafx.scene.text.Text;
 
 import java.io.*;
-import java.util.Random;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.*;
 
 /**
  * The GameEngine class manages the core logic of the MiniDungeon.
@@ -36,6 +36,41 @@ public class GameEngine implements Serializable {
      * Amount of Steps Player can take in a single game.
      */
     private static final int maxStepsTaken = 100;
+
+    private List<HighScores> highScores = new ArrayList<>();
+
+    /**
+     * Loads the existing High Scores file.
+     */
+    public void loadHighScores() {highScores = HighScores.load("highscores.dat");}
+
+    /**
+     * Saves High Scores to file for persistence.
+     */
+    public void saveHighScores() {HighScores.save(highScores, "highscores.dat");}
+
+    /**
+     * Adds the current players score to the high score list and returns the top 5.
+     *
+     * @return the top 5 high scores
+     */
+    public List<HighScores> updateHighScores() {
+        HighScores newEntry = new HighScores(
+                player.getName(),
+                player.getScore(),
+                LocalDate.now()
+        );
+
+        highScores.add(newEntry);
+        highScores.sort(Comparator.comparingInt(HighScores::getScore).reversed());
+
+        if (highScores.size() > 5) {
+            highScores = new ArrayList<>(highScores.subList(0, 5));
+        }
+
+        saveHighScores(); // Save High Scores
+        return new ArrayList<>(highScores);
+    }
 
     /**
      * Saves the current game to be resumed later.
@@ -278,6 +313,7 @@ public class GameEngine implements Serializable {
         switch (input) {
             case "n" -> {
                 engine = new GameEngine(10);
+                engine.loadHighScores();
                 System.out.print("Enter Player Name: ");
                 String name = scanner.nextLine();
                 System.out.print("Enter difficulty (1 = Easy, 2 = Medium, 3 = Hard): ");
@@ -291,6 +327,7 @@ public class GameEngine implements Serializable {
                 if (engine == null) {
                     System.out.println("Failed to load game. Starting new one.");
                     engine = new GameEngine(10);
+                    engine.loadHighScores();
                     System.out.print("Enter Player Name: ");
                     String name = scanner.nextLine();
                     System.out.print("Enter difficulty (1 = Easy, 2 = Medium, 3 = Hard): ");
@@ -330,7 +367,17 @@ public class GameEngine implements Serializable {
             System.out.println();
         }
 
-        if (engine.checkWin()) System.out.println("You escaped the dungeon!");
+        if (engine.checkWin()) {
+            System.out.println("You escaped the dungeon!");
+
+            List<HighScores> top5 = engine.updateHighScores();
+            System.out.println("=======================");
+            System.out.println("Top 5 High Scores:");
+            System.out.println("Name - Score - Date");
+            for (HighScores score : top5) {
+                System.out.println(score);
+            }
+        }
         else System.out.println("You lost the game.");
     }
 
