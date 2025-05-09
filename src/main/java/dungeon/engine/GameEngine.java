@@ -76,6 +76,24 @@ public class GameEngine implements Serializable {
     }
 
     /**
+     * Formats HighScores into a numbered list
+     *
+     * @return formated highscores list.
+     */
+    public List<String> formatHighScores() {
+        List<String> formattedHighScores = new ArrayList<>();
+        int rank = 1;
+        for (HighScores entry : highScores) {
+            formattedHighScores.add(String.format("#%d: %-12s - %-3d (%s)",
+                    rank++,
+                    entry.getPlayerName(),
+                    entry.getScore(),
+                    entry.getDate()));
+        }
+        return formattedHighScores;
+    }
+
+    /**
      * Saves the current game to be resumed later.
      *
      * @param filename name of file to save game to
@@ -376,9 +394,8 @@ public class GameEngine implements Serializable {
             List<HighScores> top5 = engine.updateHighScores();
             System.out.println("=======================");
             System.out.println("Top 5 High Scores:");
-            System.out.println("Name - Score - Date");
-            for (HighScores score : top5) {
-                System.out.println(score);
+            for (String line : engine.formatHighScores()) {
+                System.out.println(line);
             }
         }
         else System.out.println("You lost the game.");
