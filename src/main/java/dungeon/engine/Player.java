@@ -99,10 +99,14 @@ public class Player implements Serializable {
      */
     public int getX() { return x; }
 
+    public void setX(int x) { this.x = x; }
+
     /**
      * @return Players Current y-coordinate
      */
     public int getY() { return y; }
+
+    public void setY(int y) { this.y = y; }
 
     /**
      * @return Players Current HP (Health Points).

@@ -21,12 +21,17 @@ public class GameEngine implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    private Cell[][] map;
+    private Map<Integer, Cell[][]> levelMaps = new HashMap<>();
+
+    private int currentLevel = 1;
+
     private Player player;
     /**
      * Current Level of the game.
      */
     private int level;
+
+    private boolean playerHasWon = false;
     /**
      * Current difficulty of the game
      */
@@ -51,6 +56,8 @@ public class GameEngine implements Serializable {
      * Saves High Scores to file for persistence.
      */
     public void saveHighScores() {HighScores.save(highScores, "highscores.dat");}
+
+    public int getCurrentLevel() {return currentLevel;}
 
     /**
      * Adds the current players score to the high score list and returns the top 5.
@@ -131,15 +138,17 @@ public class GameEngine implements Serializable {
      * @param size the width and height of the square map.
      */
     public GameEngine(int size) {
-        map = new Cell[size][size];
+        this.levelMaps = new HashMap<>();
         this.difficulty = 1;
         this.level = 1;
 
+        Cell[][] map = new Cell[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 map[i][j] = new EmptyCell(i, j);
             }
         }
+        levelMaps.put(1, map);
     }
 
     /**
@@ -148,7 +157,7 @@ public class GameEngine implements Serializable {
      * @return this is both the width and the height.
      */
     public int getSize() {
-        return map.length;
+        return getMap().length;
     }
 
     /**
@@ -156,20 +165,38 @@ public class GameEngine implements Serializable {
      *
      * @return the map, which is a 2d array.
      */
-    public Cell[][] getMap() {
-        return map;
+    public Cell[][] getMap() {return levelMaps.get(currentLevel);}
+
+    public void switchLevel(int newLevel) {
+        if (!levelMaps.containsKey(newLevel)) {
+            // Create empty map first
+            int size = 10;
+            Cell[][] map = new Cell[size][size];
+            levelMaps.put(newLevel, map);
+
+            currentLevel = newLevel;
+            generateMap(); // ← Will now call getMap() for the correct level
+        } else {
+            currentLevel = newLevel;
+        }
+
+        // Reset player position or spawn point
+        player.setX(0);
+        player.setY(0);
+
+        System.out.println("You moved to level " + newLevel);
     }
 
     /**
      * Prints a text based map of the game
      */
     public void printMap() {
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
+        for (int i = 0; i < getMap().length; i++) {
+            for (int j = 0; j < getMap()[i].length; j++) {
                 if (player.getX() == i && player.getY() == j) {
                     System.out.print("P "); // Show player
                 } else {
-                    System.out.print(map[i][j].getIcon() + " ");
+                    System.out.print(getMap()[i][j].getIcon() + " ");
                 }
             }
             System.out.println();
@@ -195,10 +222,10 @@ public class GameEngine implements Serializable {
     /**
      * Method to move player in the correct direction on the map (Up, Down, Left, Right).
      */
-    public void moveUp() {map = player.moveUp(map); }
-    public void moveDown() {map =  player.moveDown(map); }
-    public void moveLeft() {map =  player.moveLeft(map); }
-    public void moveRight() {map =  player.moveRight(map); }
+    public void moveUp() {levelMaps.put(currentLevel, player.moveUp(getMap()));}
+    public void moveDown() {levelMaps.put(currentLevel, player.moveDown(getMap()));}
+    public void moveLeft() {levelMaps.put(currentLevel, player.moveLeft(getMap()));}
+    public void moveRight() {levelMaps.put(currentLevel, player.moveRight(getMap()));}
 
     /**
      * Sets the game difficulty level.
@@ -221,7 +248,7 @@ public class GameEngine implements Serializable {
      */
     public void generateMap() {
         Random rand = new Random();
-        int size = map.length;
+        int size = getMap().length;
 
         int cellTrap = 2 + difficulty;
         int cellGold = 2 + difficulty;
@@ -233,7 +260,7 @@ public class GameEngine implements Serializable {
         // Populate the map with EmptyCells to start with
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                map[i][j] = new EmptyCell(i, j);
+                getMap()[i][j] = new EmptyCell(i, j);
             }
         }
 
@@ -255,32 +282,32 @@ public class GameEngine implements Serializable {
      * @param rand java.util.Random Object.
      */
     private void placeRandom(Cell cell, Random rand) {
-        int size = map.length;
+        int size = getMap().length;
         int x, y;
 
         do {
             x = rand.nextInt(size);
             y = rand.nextInt(size);
         } while (
-                (x == 0 && y == 0) || map[x][y] instanceof WallCell || !(map[x][y] instanceof EmptyCell)
+                (x == 0 && y == 0) || getMap()[x][y] instanceof WallCell || !(getMap()[x][y] instanceof EmptyCell)
         );
 
         cell.x = x;
         cell.y = y;
-        map[x][y] = cell;
+        getMap()[x][y] = cell;
     }
 
     /**
      * Checks to determine if player is on a ladder,
      * this indicates either player has won or proceeds to next level.
      *
-     * @return true if player is on top of a ladder
+     * @return true if player has completed the game
      */
     public boolean checkWin() {
-        int x = player.getX();
-        int y = player.getY();
-        return map[x][y] instanceof LadderCell;
+        return playerHasWon;
     }
+
+    public void setPlayerHasWon(boolean won) {this.playerHasWon = won;}
 
     /**
      * Checks whether the player has lost the game.
@@ -300,7 +327,7 @@ public class GameEngine implements Serializable {
      * @param y the cells y-coordinate.
      */
     public void clearCell(int x, int y) {
-        map[x][y] = new EmptyCell(x, y);
+        getMap()[x][y] = new EmptyCell(x, y);
     }
 
     /**
@@ -310,9 +337,9 @@ public class GameEngine implements Serializable {
         int px = player.getX();
         int py = player.getY();
 
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                Cell cell = map[i][j];
+        for (int i = 0; i < getMap().length; i++) {
+            for (int j = 0; j < getMap()[i].length; j++) {
+                Cell cell = getMap()[i][j];
 
                 if (cell instanceof RangedMutantCell) {
                     ((RangedMutantCell) cell).tryAttack(player);

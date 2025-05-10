@@ -29,8 +29,14 @@ public class LadderCell extends Cell implements Serializable {
      */
     @Override
     public void interact(Player player) {
-        System.out.println("You found a ladder!");
-        // Advance to next level or end game
+        GameEngine engine = player.getGameEngine();
+        int currentLevel = engine.getCurrentLevel();
+
+        if (currentLevel == 1) {
+            engine.switchLevel(2);
+        } else if (currentLevel == 2) {
+            engine.setPlayerHasWon(true);
+        }
     }
 
     /**
