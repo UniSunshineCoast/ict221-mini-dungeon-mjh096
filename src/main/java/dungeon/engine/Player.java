@@ -99,6 +99,11 @@ public class Player implements Serializable {
      */
     public int getX() { return x; }
 
+    /**
+     * Sets the Players x-coordinate
+     *
+     * @param x Players Current x-coordinate
+     */
     public void setX(int x) { this.x = x; }
 
     /**
@@ -106,6 +111,11 @@ public class Player implements Serializable {
      */
     public int getY() { return y; }
 
+    /**
+     * Sets the Players y-coordinate
+     *
+     * @param y Players Current y-coordinate
+     */
     public void setY(int y) { this.y = y; }
 
     /**

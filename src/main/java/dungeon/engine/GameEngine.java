@@ -21,8 +21,14 @@ public class GameEngine implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * HashMap of levels generated in the game presently.
+     */
     private Map<Integer, Cell[][]> levelMaps = new HashMap<>();
 
+    /**
+     * Current level player is on.
+     */
     private int currentLevel = 1;
 
     private Player player;
@@ -31,6 +37,9 @@ public class GameEngine implements Serializable {
      */
     private int level;
 
+    /**
+     * If the player has met all conditions to win the game.
+     */
     private boolean playerHasWon = false;
     /**
      * Current difficulty of the game
@@ -167,6 +176,11 @@ public class GameEngine implements Serializable {
      */
     public Cell[][] getMap() {return levelMaps.get(currentLevel);}
 
+    /**
+     * Progresses player to new gevel and generates map if needed
+     *
+     * @param newLevel level number that the player will progress to
+     */
     public void switchLevel(int newLevel) {
         if (!levelMaps.containsKey(newLevel)) {
             // Create empty map first
@@ -175,7 +189,7 @@ public class GameEngine implements Serializable {
             levelMaps.put(newLevel, map);
 
             currentLevel = newLevel;
-            generateMap(); // ← Will now call getMap() for the correct level
+            generateMap(); // Generates level
         } else {
             currentLevel = newLevel;
         }
@@ -307,6 +321,11 @@ public class GameEngine implements Serializable {
         return playerHasWon;
     }
 
+    /**
+     * Updates playerHasWon variable which confirms if the player has won the game or not.
+     *
+     * @param won true or false statement if player has won or not.
+     */
     public void setPlayerHasWon(boolean won) {this.playerHasWon = won;}
 
     /**
