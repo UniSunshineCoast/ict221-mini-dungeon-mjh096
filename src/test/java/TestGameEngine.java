@@ -1,8 +1,7 @@
 import dungeon.engine.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestGameEngine {
     /**
@@ -124,5 +123,30 @@ public class TestGameEngine {
         assertTrue(potionCount >= 1, "At least 1 HealthPotionCell should be placed.");
         assertTrue(meleeCount >= 1, "At least 1 MeleeMutantCell should be placed.");
         assertTrue(rangedCount >= 1, "At least 1 RangedMutantCell should be placed.");
+    }
+
+    /**
+     * Checks level progression works going between level 1 and 2
+     */
+    @Test
+    void testLevelProgression() {
+        GameEngine engine = new GameEngine(10);
+        Player player = new Player("Test", 0, 0);
+        engine.setPlayer(player);
+        engine.generateMap();
+        Cell[][] level1Map = engine.getMap();
+        level1Map[1][1] = new GoldCell(1, 1);
+
+        engine.switchLevel(2);
+        assertNotNull(engine.getMap(), "Level 2 map should be generated.");
+        assertNotSame(level1Map, engine.getMap(), "Level 2 should have a different map from Level 1.");
+
+        engine.getMap()[2][2] = new TrapCell(2, 2);
+
+        engine.switchLevel(1);
+        assertEquals(GoldCell.class, engine.getMap()[1][1].getClass(), "Level 1 map should still have the GoldCell at (1,1)");
+
+        engine.switchLevel(2);
+        assertEquals(TrapCell.class, engine.getMap()[2][2].getClass(), "Level 2 map should still have the TrapCell at (2,2)");
     }
 }
