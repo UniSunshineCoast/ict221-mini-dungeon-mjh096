@@ -16,12 +16,12 @@ public class HighScores implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    private final String playername;
+    private final String playerName;
     private final int score;
     private final LocalDate date;
 
     public HighScores(String name, int score, LocalDate date) {
-        this.playername = name;
+        this.playerName = name;
         this.score = score;
         this.date = date;
     }
@@ -29,7 +29,7 @@ public class HighScores implements Serializable {
     /**
      * @return Name of scoring player
      */
-    public String getPlayerName() {return playername;}
+    public String getPlayerName() {return playerName;}
     /**
      * @return Returns captured score
      */
@@ -42,7 +42,7 @@ public class HighScores implements Serializable {
 
     @Override
     public String toString() {
-        return playername + " - " + score + " (" + date + ")";
+        return playerName + " - " + score + " (" + date + ")";
     }
 
     /**
