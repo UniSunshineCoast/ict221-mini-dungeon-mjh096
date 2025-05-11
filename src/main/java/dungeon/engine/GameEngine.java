@@ -35,7 +35,7 @@ public class GameEngine implements Serializable {
     /**
      * Current Level of the game.
      */
-    private int level;
+//    private int level;
 
     /**
      * If the player has met all conditions to win the game.
@@ -149,7 +149,6 @@ public class GameEngine implements Serializable {
     public GameEngine(int size) {
         this.levelMaps = new HashMap<>();
         this.difficulty = 1;
-        this.level = 1;
 
         Cell[][] map = new Cell[size][size];
         for (int i = 0; i < size; i++) {
@@ -215,7 +214,7 @@ public class GameEngine implements Serializable {
             }
             System.out.println();
         }
-        System.out.println("Player: " + player.getName() + " | Level: " + level + " | Difficulty: " + difficulty);
+        System.out.println("Player: " + player.getName() + " | Level: " + getCurrentLevel() + " | Difficulty: " + difficulty);
         System.out.println("HP: " + player.getHP() + " | Score: " + player.getScore() + " | Steps Taken: " + player.getStepsTaken() + "/" + maxStepsTaken);
     }
 
