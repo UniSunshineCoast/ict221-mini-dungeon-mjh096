@@ -4,10 +4,18 @@ import dungeon.engine.Cell;
 import dungeon.engine.GameEngine;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 
 public class Controller {
-    @FXML
-    private GridPane gridPane;
+    @FXML private GridPane gridPane;
+    @FXML private Label hpLabel;
+    @FXML private Label scoreLabel;
+    @FXML private Label stepsLabel;
+    @FXML private Button upBtn, downBtn, leftBtn, rightBtn;
+    @FXML private Button saveBtn, loadBtn, helpBtn;
+    @FXML private TextArea statusArea;
 
     GameEngine engine;
 
@@ -23,10 +31,16 @@ public class Controller {
         gridPane.getChildren().clear();
 
         //Loop through map board and add each cell into grid pane
-        for(int i = 0; i < engine.getSize(); i++) {
+        for (int i = 0; i < engine.getSize(); i++) {
             for (int j = 0; j < engine.getSize(); j++) {
                 Cell cell = engine.getMap()[i][j];
-                gridPane.add(cell, j, i);
+
+                // For now, represent each cell with a Label or Pane
+                Label cellLabel = new Label(cell.getIcon());
+                cellLabel.setMinSize(25, 25);
+                cellLabel.setStyle("-fx-border-color: black; -fx-alignment: center;");
+
+                gridPane.add(cellLabel, j, i);
             }
         }
         gridPane.setGridLinesVisible(true);

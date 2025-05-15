@@ -1,18 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dungeon.gui.Controller">
-    <padding>
-        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-    </padding>
-
+<BorderPane prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dungeon.gui.Controller">
+    <!-- CENTER: Game Grid -->
     <center>
-        <GridPane fx:id="gridPane" prefHeight="400.0" prefWidth="400.0" BorderPane.alignment="CENTER">
-
+        <GridPane fx:id="gridPane" hgap="2" vgap="2">
+            <padding><Insets top="10" left="10" bottom="10" right="10"/></padding>
         </GridPane>
     </center>
+
+    <!-- RIGHT: Player Stats and Controls -->
+    <right>
+        <VBox spacing="10" alignment="TOP_LEFT">
+            <padding>
+                <Insets top="10" bottom="10" left="10" right="10"/>
+            </padding>
+            <Label text="Player Stats" style="-fx-font-weight: bold;" />
+            <Label fx:id="hpLabel" text="HP: 10" />
+            <Label fx:id="scoreLabel" text="Score: 0" />
+            <Label fx:id="stepsLabel" text="Steps Left: 100" />
+
+            <Separator />
+
+            <Label text="Move:" />
+            <GridPane hgap="5" vgap="5">
+                <Button fx:id="upBtn" text="↑" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                <Button fx:id="leftBtn" text="←" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <Button fx:id="rightBtn" text="→" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <Button fx:id="downBtn" text="↓" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            </GridPane>
+
+            <Separator />
+
+            <Button fx:id="saveBtn" text="Save Game" />
+            <Button fx:id="loadBtn" text="Load Game" />
+            <Button fx:id="helpBtn" text="Help" />
+        </VBox>
+    </right>
+
+    <!-- BOTTOM: Message Area -->
+    <bottom>
+        <TextArea fx:id="statusArea" editable="false" wrapText="true" prefRowCount="2"
+                  promptText="Game messages appear here..." />
+    </bottom>
 
 
 </BorderPane>
