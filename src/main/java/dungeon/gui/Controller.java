@@ -48,4 +48,8 @@ public class Controller {
         gridPane.setGridLinesVisible(true);
     }
 
+    public void setEngine(GameEngine engine) {
+        this.engine = engine;
+        updateGui();
+    }
 }
