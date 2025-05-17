@@ -10,6 +10,8 @@ import javafx.scene.control.TextArea;
 
 public class Controller {
     @FXML private GridPane gridPane;
+    @FXML private Label nameLabel;
+    @FXML private Label levelLabel;
     @FXML private Label hpLabel;
     @FXML private Label scoreLabel;
     @FXML private Label stepsLabel;

@@ -4,21 +4,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dungeon.gui.Controller">
+<BorderPane prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dungeon.gui.Controller">
     <!-- CENTER: Game Grid -->
     <center>
-        <GridPane fx:id="gridPane" hgap="2" vgap="2">
-            <padding><Insets top="10" left="10" bottom="10" right="10"/></padding>
+        <GridPane fx:id="gridPane" alignment="CENTER" hgap="2" vgap="2">
+            <padding><Insets bottom="10" left="10" right="10" top="10" /></padding>
         </GridPane>
     </center>
 
     <!-- RIGHT: Player Stats and Controls -->
     <right>
-        <VBox spacing="10" alignment="TOP_LEFT">
+        <VBox alignment="TOP_LEFT" spacing="10">
             <padding>
-                <Insets top="10" bottom="10" left="10" right="10"/>
+                <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
-            <Label text="Player Stats" style="-fx-font-weight: bold;" />
+            <Label style="-fx-font-weight: bold;" text="Player Stats" />
+            <Label fx:id="nameLabel" text="Name: Player" />
+            <Label fx:id="levelLabel" text="Level: 1" />
             <Label fx:id="hpLabel" text="HP: 10" />
             <Label fx:id="scoreLabel" text="Score: 0" />
             <Label fx:id="stepsLabel" text="Steps Left: 100" />
@@ -27,10 +29,20 @@
 
             <Label text="Move:" />
             <GridPane hgap="5" vgap="5">
-                <Button fx:id="upBtn" text="↑" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                <Button fx:id="leftBtn" text="←" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                <Button fx:id="rightBtn" text="→" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-                <Button fx:id="downBtn" text="↓" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Button fx:id="upBtn" text="↑" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Button fx:id="leftBtn" text="←" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Button fx:id="rightBtn" text="→" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Button fx:id="downBtn" text="↓" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <columnConstraints>
+               <ColumnConstraints />
+               <ColumnConstraints />
+               <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
             </GridPane>
 
             <Separator />
@@ -43,8 +55,7 @@
 
     <!-- BOTTOM: Message Area -->
     <bottom>
-        <TextArea fx:id="statusArea" editable="false" wrapText="true" prefRowCount="2"
-                  promptText="Game messages appear here..." />
+        <TextArea fx:id="statusArea" editable="false" prefRowCount="2" promptText="Game messages appear here..." wrapText="true" />
     </bottom>
 
 
