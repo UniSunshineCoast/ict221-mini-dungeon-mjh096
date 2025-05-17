@@ -25,7 +25,30 @@ public class Controller {
     public void initialize() {
         engine = new GameEngine(10);
 
+        upBtn.setOnAction(e -> handleMove("up"));
+        downBtn.setOnAction(e -> handleMove("down"));
+        leftBtn.setOnAction(e -> handleMove("left"));
+        rightBtn.setOnAction(e -> handleMove("right"));
+
         updateGui();
+    }
+
+    private void handleMove(String direction) {
+        switch (direction) {
+            case "up" -> engine.moveUp();
+            case "down" -> engine.moveDown();
+            case "left" -> engine.moveLeft();
+            case "right" -> engine.moveRight();
+        }
+
+        updateGui();
+
+        // Optional: check for win or lose
+//        if (engine.checkWin()) {
+//            showEndScreen(true); // win
+//        } else if (engine.checkLose()) {
+//            showEndScreen(false); // lose
+//        }
     }
 
     private void updateGui() {
