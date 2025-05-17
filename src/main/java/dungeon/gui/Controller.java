@@ -29,10 +29,16 @@ public class Controller {
     }
 
     private void updateGui() {
-        //Clear old GUI grid pane
+        // Clear old GUI grid pane
         gridPane.getChildren().clear();
 
-        //Loop through map board and add each cell into grid pane
+        if (engine.getPlayer() != null) {
+            nameLabel.setText("Name: " + engine.getPlayer().getName());
+        } else {
+            nameLabel.setText("Name: (Unknown)");
+        }
+
+        // Loop through map board and add each cell into grid pane
         for (int i = 0; i < engine.getSize(); i++) {
             for (int j = 0; j < engine.getSize(); j++) {
                 Cell cell = engine.getMap()[i][j];
