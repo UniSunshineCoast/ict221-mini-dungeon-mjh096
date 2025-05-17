@@ -2,6 +2,7 @@ package dungeon.gui;
 
 import dungeon.engine.GameEngine;
 import dungeon.engine.HighScores;
+import dungeon.engine.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -58,6 +59,16 @@ public class StartupController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("game_gui.fxml"));
             Scene scene = new Scene(loader.load());
             Controller gameController = loader.getController();
+            String name = nameField.getText().trim();
+            String difficultyText = difficultyBox.getValue();
+            int difficulty = switch (difficultyText) {
+                case "Easy" -> 1;
+                case "Medium" -> 2;
+                case "Hard" -> 3;
+                default -> 1; // fallback
+            };
+            engine.setDifficulty(difficulty);
+            engine.setPlayer(new Player(name, 0, 0));
             gameController.setEngine(engine);
 
             Stage stage = (Stage) nameField.getScene().getWindow();
