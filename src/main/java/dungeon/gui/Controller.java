@@ -32,25 +32,37 @@ public class Controller {
         // Clear old GUI grid pane
         gridPane.getChildren().clear();
 
-        if (engine.getPlayer() != null) {
-            nameLabel.setText("Name: " + engine.getPlayer().getName());
-        } else {
-            nameLabel.setText("Name: (Unknown)");
+        // Checks if Player is present before proceeding
+        if (engine.getPlayer() == null) {
+            System.out.println("Player not set yet — skipping GUI update.");
+            return;
         }
+
+        nameLabel.setText("Name: " + engine.getPlayer().getName());
+
+        // Gets Players position
+        int playerX = engine.getPlayer().getX();
+        int playerY = engine.getPlayer().getY();
 
         // Loop through map board and add each cell into grid pane
         for (int i = 0; i < engine.getSize(); i++) {
             for (int j = 0; j < engine.getSize(); j++) {
                 Cell cell = engine.getMap()[i][j];
 
-                // For now, represent each cell with a Label or Pane
-                Label cellLabel = new Label(cell.getIcon());
+                String icon = (i == playerX && j == playerY) ? "P" : cell.getIcon();
+
+                Label cellLabel = new Label(icon);
                 cellLabel.setMinSize(25, 25);
-                cellLabel.setStyle("-fx-border-color: black; -fx-alignment: center;");
+                cellLabel.setStyle("-fx-border-color: black; -fx-alignment: center; -fx-font-weight: bold;");
 
                 gridPane.add(cellLabel, j, i);
             }
         }
+
+        // Sets up Player stats
+        hpLabel.setText("HP: " + engine.getPlayer().getHP());
+        scoreLabel.setText("Score: " + engine.getPlayer().getScore());
+        stepsLabel.setText("Steps Taken: " + engine.getPlayer().getStepsTaken());
         gridPane.setGridLinesVisible(true);
     }
 
