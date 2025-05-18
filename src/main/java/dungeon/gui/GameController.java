@@ -7,6 +7,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 public class GameController {
     @FXML private GridPane gridPane;
@@ -22,18 +23,18 @@ public class GameController {
     GameEngine engine;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws Exception {
         engine = new GameEngine(10);
 
-        upBtn.setOnAction(e -> handleMove("up"));
-        downBtn.setOnAction(e -> handleMove("down"));
-        leftBtn.setOnAction(e -> handleMove("left"));
-        rightBtn.setOnAction(e -> handleMove("right"));
+        upBtn.setOnAction(e -> {try {handleMove("up");} catch (Exception ex) {throw new RuntimeException(ex);}});
+        downBtn.setOnAction(e -> {try {handleMove("down");} catch (Exception ex) {throw new RuntimeException(ex);}});
+        leftBtn.setOnAction(e -> {try {handleMove("left");} catch (Exception ex) {throw new RuntimeException(ex);}});
+        rightBtn.setOnAction(e -> {try {handleMove("right");} catch (Exception ex) {throw new RuntimeException(ex);}});
 
         updateGui();
     }
 
-    private void handleMove(String direction) {
+    private void handleMove(String direction) throws Exception {
         switch (direction) {
             case "up" -> engine.moveUp();
             case "down" -> engine.moveDown();
@@ -43,11 +44,11 @@ public class GameController {
 
         updateGui();
 
-//        if (engine.checkWin()) {
-//            showEndScreen(true); // win
-//        } else if (engine.checkLose()) {
-//            showEndScreen(false); // lose
-//        }
+        if (engine.checkWin()) {
+            GameGUI.showEnd((Stage) gridPane.getScene().getWindow(), engine, true);
+        } else if (engine.checkLose()) {
+            GameGUI.showEnd((Stage) gridPane.getScene().getWindow(), engine, false);
+        }
     }
 
     private void updateGui() {

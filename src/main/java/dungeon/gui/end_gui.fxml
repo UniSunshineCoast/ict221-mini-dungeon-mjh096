@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="dungeon.gui.EndController"
+            prefHeight="250.0" prefWidth="400.0">
+
+    <center>
+        <VBox spacing="10" alignment="CENTER">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label fx:id="endTitleLabel" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+            <Label fx:id="finalScoreLabel" />
+            <Label fx:id="finalStepsLabel" />
+            <Button fx:id="exitBtn" text="Exit" />
+            <Button fx:id="restartBtn" text="Play Again" />
+        </VBox>
+    </center>
+
+</BorderPane>

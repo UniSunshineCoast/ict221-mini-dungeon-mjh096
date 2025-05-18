@@ -3,7 +3,6 @@ package dungeon.gui;
 import dungeon.engine.GameEngine;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -18,6 +17,14 @@ public class GameGUI extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         BorderPane root = FXMLLoader.load(getClass().getResource("startup_gui.fxml"));
+
+        primaryStage.setScene(new Scene(root, 800, 800));
+        primaryStage.setTitle("MiniDungeon Game");
+        primaryStage.show();
+    }
+
+    public static void showEnd(Stage primaryStage, GameEngine engine, boolean won) throws Exception {
+        BorderPane root = FXMLLoader.load(GameGUI.class.getResource("end_gui.fxml"));
 
         primaryStage.setScene(new Scene(root, 800, 800));
         primaryStage.setTitle("MiniDungeon Game");
