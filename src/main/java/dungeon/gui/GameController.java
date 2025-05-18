@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
-public class Controller {
+public class GameController {
     @FXML private GridPane gridPane;
     @FXML private Label nameLabel;
     @FXML private Label levelLabel;
@@ -43,7 +43,6 @@ public class Controller {
 
         updateGui();
 
-        // Optional: check for win or lose
 //        if (engine.checkWin()) {
 //            showEndScreen(true); // win
 //        } else if (engine.checkLose()) {

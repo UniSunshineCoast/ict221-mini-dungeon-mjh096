@@ -58,7 +58,7 @@ public class StartupController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("game_gui.fxml"));
             Scene scene = new Scene(loader.load());
-            Controller gameController = loader.getController();
+            GameController gameController = loader.getController();
             String name = nameField.getText().trim();
             String difficultyText = difficultyBox.getValue();
             int difficulty = switch (difficultyText) {
