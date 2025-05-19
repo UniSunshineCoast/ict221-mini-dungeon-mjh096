@@ -1,6 +1,7 @@
 package dungeon.gui;
 
 import dungeon.engine.GameEngine;
+import dungeon.engine.HighScores;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,6 +26,7 @@ public class GameGUI extends Application {
 
     public static void showEnd(Stage primaryStage, GameEngine engine, boolean won) throws Exception {
         BorderPane root = FXMLLoader.load(GameGUI.class.getResource("end_gui.fxml"));
+        engine.updateHighScores();
 
         primaryStage.setScene(new Scene(root, 800, 800));
         primaryStage.setTitle("MiniDungeon Game");
