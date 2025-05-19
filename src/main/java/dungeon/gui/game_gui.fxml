@@ -48,8 +48,6 @@
             <Separator />
 
             <Button fx:id="saveBtn" text="Save Game" />
-            <Button fx:id="loadBtn" text="Load Game" />
-            <Button fx:id="helpBtn" text="Help" />
         </VBox>
     </right>
 

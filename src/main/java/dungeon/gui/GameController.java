@@ -20,8 +20,7 @@ public class GameController {
     @FXML private Label hpLabel;
     @FXML private Label scoreLabel;
     @FXML private Label stepsLabel;
-    @FXML private Button upBtn, downBtn, leftBtn, rightBtn;
-    @FXML private Button saveBtn, loadBtn, helpBtn;
+    @FXML private Button upBtn, downBtn, leftBtn, rightBtn, saveBtn;
     @FXML private TextArea statusArea;
 
     GameEngine engine;
