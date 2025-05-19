@@ -32,10 +32,6 @@ public class GameEngine implements Serializable {
     private int currentLevel = 1;
 
     private Player player;
-    /**
-     * Current Level of the game.
-     */
-//    private int level;
 
     /**
      * If the player has met all conditions to win the game.
