@@ -15,12 +15,14 @@ import javafx.stage.Stage;
  */
 public class GameGUI extends Application {
 
+    public static final String gameTitle = "Mini Dungeon";
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         BorderPane root = FXMLLoader.load(getClass().getResource("startup_gui.fxml"));
 
         primaryStage.setScene(new Scene(root, 800, 800));
-        primaryStage.setTitle("MiniDungeon Game");
+        primaryStage.setTitle(gameTitle);
         primaryStage.show();
     }
 
@@ -29,7 +31,7 @@ public class GameGUI extends Application {
         engine.updateHighScores();
 
         primaryStage.setScene(new Scene(root, 800, 800));
-        primaryStage.setTitle("MiniDungeon Game");
+        primaryStage.setTitle(gameTitle);
         primaryStage.show();
     }
 

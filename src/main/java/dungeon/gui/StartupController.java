@@ -73,7 +73,7 @@ public class StartupController {
 
             Stage stage = (Stage) nameField.getScene().getWindow();
             stage.setScene(scene);
-            stage.setTitle("MiniDungeon Game");
+            stage.setTitle(GameGUI.gameTitle);
             stage.show();
         } catch (IOException ex) {
             showAlert("Failed to load game screen.");
