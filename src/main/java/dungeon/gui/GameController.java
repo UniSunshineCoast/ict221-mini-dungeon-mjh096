@@ -2,12 +2,16 @@ package dungeon.gui;
 
 import dungeon.engine.Cell;
 import dungeon.engine.GameEngine;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 public class GameController {
     @FXML private GridPane gridPane;
@@ -31,6 +35,7 @@ public class GameController {
         leftBtn.setOnAction(e -> {try {handleMove("left");} catch (Exception ex) {throw new RuntimeException(ex);}});
         rightBtn.setOnAction(e -> {try {handleMove("right");} catch (Exception ex) {throw new RuntimeException(ex);}});
 
+        redirectSystemOut();
         updateGui();
     }
 
@@ -56,10 +61,7 @@ public class GameController {
         gridPane.getChildren().clear();
 
         // Checks if Player is present before proceeding
-        if (engine.getPlayer() == null) {
-            System.out.println("Player not set yet — skipping GUI update.");
-            return;
-        }
+        if (engine.getPlayer() == null) {return;}
 
         nameLabel.setText("Name: " + engine.getPlayer().getName());
 
@@ -87,6 +89,17 @@ public class GameController {
         scoreLabel.setText("Score: " + engine.getPlayer().getScore());
         stepsLabel.setText("Steps Taken: " + engine.getPlayer().getStepsTaken());
         gridPane.setGridLinesVisible(true);
+    }
+
+    private void redirectSystemOut() {
+        PrintStream printStream = new PrintStream(new OutputStream() {
+            @Override
+            public void write(int b) {
+                Platform.runLater(() -> {statusArea.appendText(String.valueOf((char) b));});
+            }
+        }, true); // autoFlush
+
+        System.setOut(printStream);
     }
 
     public void setEngine(GameEngine engine) {
