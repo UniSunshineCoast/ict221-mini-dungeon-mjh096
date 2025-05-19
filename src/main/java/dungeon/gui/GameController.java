@@ -96,7 +96,7 @@ public class GameController {
             public void write(int b) {
                 Platform.runLater(() -> {statusArea.appendText(String.valueOf((char) b));});
             }
-        }, true); // autoFlush
+        }, true);
 
         System.setOut(printStream);
     }

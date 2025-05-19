@@ -8,9 +8,6 @@ import javafx.scene.control.Button;
 
 public class EndController {
 
-    @FXML private Label endTitleLabel;
-    @FXML private Label finalScoreLabel;
-    @FXML private Label finalStepsLabel;
     @FXML private Button exitBtn;
     @FXML private Button restartBtn;
 
@@ -31,14 +28,4 @@ public class EndController {
             }
         });
     }
-
-    public void endGame(GameEngine engine, boolean won) {
-        this.engine = engine;
-        this.won = won;
-
-        endTitleLabel.setText(won ? "🎉 You Escaped the Dungeon!" : "💀 You Lost!");
-        finalScoreLabel.setText("Final Score: " + engine.getPlayer().getScore());
-        finalStepsLabel.setText("Steps Taken: " + engine.getPlayer().getStepsTaken());
-    }
-
 }

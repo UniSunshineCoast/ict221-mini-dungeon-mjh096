@@ -17,9 +17,7 @@
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
-            <Label fx:id="endTitleLabel" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-            <Label fx:id="finalScoreLabel" />
-            <Label fx:id="finalStepsLabel" />
+            <Label fx:id="endTitleLabel" text="Game Over" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
             <Button fx:id="exitBtn" text="Exit" />
             <Button fx:id="restartBtn" text="Play Again" />
         </VBox>
