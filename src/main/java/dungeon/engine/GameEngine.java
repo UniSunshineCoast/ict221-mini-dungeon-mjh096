@@ -74,6 +74,7 @@ public class GameEngine implements Serializable {
      * @return the top 5 high scores
      */
     public List<HighScores> updateHighScores() {
+        loadHighScores();
         HighScores newEntry = new HighScores(
                 player.getName(),
                 player.getScore(),
