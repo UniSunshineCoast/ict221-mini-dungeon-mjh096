@@ -15,8 +15,15 @@ import javafx.stage.Stage;
  */
 public class GameGUI extends Application {
 
+    /** Title for GUI. */
     public static final String gameTitle = "Mini Dungeon";
 
+    /**
+     * Kicks of the GUI by loading the Startup Screen.
+     *
+     * @param primaryStage Stage for the Startup Screen.
+     * @throws Exception Returns error is FXML fails to load.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         BorderPane root = FXMLLoader.load(getClass().getResource("startup_gui.fxml"));
@@ -26,6 +33,14 @@ public class GameGUI extends Application {
         primaryStage.show();
     }
 
+    /**
+     * This screen at the end of the game, allowing the player to restart or exit.
+     *
+     * @param primaryStage Stage for the End Screen.
+     * @param engine Game Engine.
+     * @param won Boolean for win or lose.
+     * @throws Exception Returns error is FXML fails to load.
+     */
     public static void showEnd(Stage primaryStage, GameEngine engine, boolean won) throws Exception {
         BorderPane root = FXMLLoader.load(GameGUI.class.getResource("end_gui.fxml"));
         engine.updateHighScores();

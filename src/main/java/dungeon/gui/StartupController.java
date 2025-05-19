@@ -13,11 +13,18 @@ import java.io.IOException;
 import java.util.List;
 
 public class StartupController {
+    /** Players Name. */
     @FXML private TextField nameField;
+    /** Game Difficulty. */
     @FXML private ComboBox<String> difficultyBox;
+    /** Game Actions (e.g. New Game and Load Game). */
     @FXML private Button newGameBtn, loadGameBtn;
+    /** Displayed List of High Scores. */
     @FXML private ListView<String> highScoresList;
 
+    /**
+     * Initialises the controller. Wiring movement actions to button.
+     */
     @FXML
     public void initialize() {
         difficultyBox.getItems().addAll("Easy", "Medium", "Hard");
@@ -32,6 +39,9 @@ public class StartupController {
         loadGameBtn.setOnAction(e -> loadGame());
     }
 
+    /**
+     * When New Game is pressed, triggers new game and progresses to game GUI.
+     */
     private void NewGame() {
         String name = nameField.getText().trim();
         int difficulty = difficultyBox.getSelectionModel().getSelectedIndex() + 1;
@@ -49,11 +59,19 @@ public class StartupController {
         switchToGameGUI(engine);
     }
 
+    /**
+     * When Load Game is pressed, loads game file if possible and proceeds to game GUI.
+     */
     private void loadGame() {
         GameEngine engine = GameEngine.loadGame("savegame.dat");
         switchToGameGUI(engine);
     }
 
+    /**
+     * Progresses to the Game GUI and setups the engine and game grid.
+     *
+     * @param engine engine for Mini Dungeon
+     */
     private void switchToGameGUI(GameEngine engine) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("game_gui.fxml"));
@@ -80,6 +98,11 @@ public class StartupController {
         }
     }
 
+    /**
+     * Shows Alert to user if issue occurs (e.g, No Name for Player).
+     *
+     * @param message message to present
+     */
     private void showAlert(String message) {
         new Alert(Alert.AlertType.WARNING, message).showAndWait();
     }
